@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse_Move-Eye</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #göz {
+            
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="göz"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const göz = document.getElementById('göz');
+
+            document.addEventListener('mousemove', function (e) {
+                const x = e.clientX / window.innerWidth - 0.5;
+                const y = e.clientY / window.innerHeight - 0.5;
+
+                const gözYeniX = x * 1500;
+                const gözYeniY = y * 1500;
+
+                const mevcutX = parseFloat(göz.style.transform.split('(')[1]) || 0;
+                const mevcutY = parseFloat(göz.style.transform.split(',')[1]) || 0;
+
+                const hedefX = mevcutX + (gözYeniX - mevcutX) * 0.1;
+                const hedefY = mevcutY + (gözYeniY - mevcutY) * 0.1;
+
+                göz.style.transform = `translate(${gözYeniX}px, ${gözYeniY}px)`;
+            });
+        });
+    </script>
+
+</html>
